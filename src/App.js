@@ -12,6 +12,7 @@ import ServicePage from './components/service_page/service_page';
 import Navigation from './components/layout/navigation';
 import { GoThreeBars } from 'react-icons/go';
 import { useState } from 'react';
+import Mypage from './components/service_page/mypage';
 
 const StyledNavbar = styled.nav`
   background-color: #dee2e5;
@@ -110,7 +111,8 @@ function App() {
         <Switch>
           <Route path="/sign-up" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
-          <Route exact path="/" component={ServicePage} />
+          <Route exact path="/" component={ServicePage} />{' '}
+          <Route path="/mypage/order" component={Mypage} />
         </Switch>
       </Router>
     </>

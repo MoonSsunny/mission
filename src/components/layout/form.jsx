@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import Button from '../common/button';
 import axios from 'axios';
 
@@ -23,7 +23,6 @@ const StyledInput = styled.input`
   background: transparent;
   margin: 20px 0;
 `;
-
 const Form = ({ type }) => {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -33,7 +32,6 @@ const Form = ({ type }) => {
   const [userNumber, setUserNumber] = useState('');
   const userIdInputRef = useRef();
   const userPwInputRef = useRef();
-
   const formName = {
     login: '로그인',
     register: '회원가입',
@@ -41,6 +39,7 @@ const Form = ({ type }) => {
   const text = formName[type];
 
   //   회원등록 api호출
+
   const createUserApi = async (user) => {
     const response = await axios
       .post('http://106.10.53.116:8099/sign-up', {
@@ -80,6 +79,9 @@ const Form = ({ type }) => {
         mobile: userNumber,
       });
       if (response) {
+        if (response.token) {
+          localStorage.setItem('token', response.token);
+        }
         alert('회원가입성공');
         window.location.href = '/';
         console.log(response);
@@ -119,6 +121,7 @@ const Form = ({ type }) => {
       });
       if (response) {
         alert('로그인성공');
+        console.log(response);
         window.location.href = '/';
       }
     } catch (err) {
@@ -133,7 +136,7 @@ const Form = ({ type }) => {
     return regExp.test(email);
   };
 
-  // focus blur 될때 event 발생
+  // focus blur 될때 event 발생 , setCheckId update => css 제어
 
   const handleBlur = () => {
     if (userEmail === true) {
