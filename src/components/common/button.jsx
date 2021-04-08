@@ -24,5 +24,6 @@ const StyleButton = styled.button`
 `;
 
 const Button = (props) => <StyleButton {...props} />;
-
+// 버튼 컴포넌트를 이용해서 다양한 곳에서 버튼 재사용하도록 한다
+// props를 통해서 스타일을 제어한다
 export default Button;

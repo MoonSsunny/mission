@@ -2,19 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 const TemplateBlock = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  right: 0;
-  width: 100%;
   height: 500px;
-  margin: 100px 0;
+  margin: 100px;
 `;
 
 const MainBox = styled.div`
   .logo {
     display: block;
     padding-bottom: 2rem;
+    width: 100px;
+    margin: 0 auto;
     text-align: center;
     font-weight: bold;
     letter-space: 2px;
@@ -25,13 +22,16 @@ const MainBox = styled.div`
   width: 500px;
   padding: 2rem;
   border-radius: 9px;
+  @media screen and (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const Template = ({ children }) => {
   return (
     <TemplateBlock>
       <MainBox>
-        <div className="logo">LOGO</div>
+        <img src="/img/logo.png" alt="" className="logo" />
         {children}
       </MainBox>
     </TemplateBlock>
