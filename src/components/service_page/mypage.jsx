@@ -1,31 +1,30 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import MypageItem from './mypage_item';
-import Pagination from './pagination';
+import Pagination from './mypagination';
 
 const Mypage = () => {
   const [content, setContent] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [contentPages] = useState(10);
-  const indexOfLastPage = currentPage * contentPages;
-  const indexOfFristPage = indexOfLastPage - contentPages;
-  const currentPosts = content.slice(indexOfFristPage, indexOfLastPage);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [totalPage, setTotalPage] = useState(0);
+
+  const paginate = (pageNumer) => setCurrentPage(pageNumer);
 
   useEffect(() => {
     const contentApi = async () => {
-      const response = await axios.get('http://106.10.53.116:8099/order');
-      console.log(response.data.content);
-      console.log(response.data.totalPages);
-      console.log(response.data.currentPage);
+      const response = await axios.get(
+        `http://106.10.53.116:8099/order?page=${currentPage}`,
+      );
+      setTotalPage(response.data.totalPages);
       setContent(response.data.content);
     };
-    setTimeout(contentApi(), 1000);
-  }, []);
+    setTimeout(contentApi, 1000);
+  }, [currentPage]);
 
   return (
     <div className="container">
-      <MypageItem posts={currentPosts} />
-      <Pagination contentPages={contentPages} totalPosts={content.length} />
+      <MypageItem posts={content} />
+      <Pagination totalPage={totalPage} paginate={paginate} />
     </div>
   );
 };

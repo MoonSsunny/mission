@@ -13,6 +13,8 @@ import Navigation from './components/layout/navigation';
 import { GoThreeBars } from 'react-icons/go';
 import { useState } from 'react';
 import Mypage from './components/service_page/mypage';
+import MypageDetail from './components/service_page/mypage_detail';
+import Logout from './components/service_page/logout';
 
 const StyledNavbar = styled.nav`
   background-color: #dee2e5;
@@ -81,24 +83,55 @@ function App() {
     { name: '로그인', path: '/login', id: 'login' },
   ];
 
+  const loginMenus = [
+    { name: '서비스', path: '/', id: 'service' },
+    { name: '마이페이지', path: '/mypage/order', id: 'mypage' },
+    { name: '로그아웃', path: '/logout', id: 'logout' },
+  ];
+
   return (
     <>
       <Router>
         <StyledNavbar>
           <img src="/img/logo.png" alt="service img" className="logo" />
           <StyledMenuItem>
-            {menus.map((menu) => {
-              return (
-                <StyledMenuList menuDisplay={menuDisplay}>
-                  <Link to={menu.path} key={menu.id}>
-                    <Navigation
-                      menu={menu}
-                      isActive={pathName === menu.path ? true : false}
-                    />
-                  </Link>
-                </StyledMenuList>
-              );
-            })}
+            {sessionStorage.getItem('token')
+              ? loginMenus.map((menu) => {
+                  return (
+                    <StyledMenuList
+                      menuDisplay={menuDisplay}
+                      key={menu.id}
+                      onClick={(e) => {
+                        console.log(e.target);
+                      }}
+                    >
+                      <Link to={menu.path}>
+                        <Navigation
+                          menu={menu}
+                          isActive={pathName === menu.path ? true : false}
+                        />
+                      </Link>
+                    </StyledMenuList>
+                  );
+                })
+              : menus.map((menu) => {
+                  return (
+                    <StyledMenuList
+                      menuDisplay={menuDisplay}
+                      key={menu.id}
+                      onClick={(e) => {
+                        console.log(e.target.className);
+                      }}
+                    >
+                      <Link to={menu.path}>
+                        <Navigation
+                          menu={menu}
+                          isActive={pathName === menu.path ? true : false}
+                        />
+                      </Link>
+                    </StyledMenuList>
+                  );
+                })}
           </StyledMenuItem>
           <StyledHambuerMenu
             onClick={() => {
@@ -111,8 +144,10 @@ function App() {
         <Switch>
           <Route path="/sign-up" component={RegisterPage} />
           <Route path="/login" component={LoginPage} />
-          <Route exact path="/" component={ServicePage} />{' '}
-          <Route path="/mypage/order" component={Mypage} />
+          <Route exact path="/" component={ServicePage} />
+          <Route path="/mypage/order/:id" exact component={MypageDetail} />
+          <Route path="/mypage/order" exact component={Mypage} />
+          <Route path="/logout" exact component={Logout} />
         </Switch>
       </Router>
     </>

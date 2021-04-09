@@ -38,7 +38,9 @@ const Form = ({ type }) => {
   };
   const text = formName[type];
 
+  // ********************************************
   //   회원등록 api호출
+  // ********************************************
 
   const createUserApi = async (user) => {
     const response = await axios
@@ -80,7 +82,7 @@ const Form = ({ type }) => {
       });
       if (response) {
         if (response.token) {
-          localStorage.setItem('token', response.token);
+          sessionStorage.setItem('token', response.token);
         }
         alert('회원가입성공');
         window.location.href = '/';
@@ -90,8 +92,10 @@ const Form = ({ type }) => {
       console.error(err);
     }
   };
-
+  // ****************************************
   //로그인 api호출
+  // ****************************************
+
   const UserApi = async (user) => {
     const response = await axios
       .post('http://106.10.53.116:8099/login', {
@@ -101,6 +105,9 @@ const Form = ({ type }) => {
         },
       })
       .then((response) => {
+        if (response.token) {
+          sessionStorage.setItem('token', response.token);
+        }
         return response.data;
       })
       .catch((error) => {
@@ -130,14 +137,15 @@ const Form = ({ type }) => {
   };
 
   //   이메일 정규식 검사를 통해 이메일의 유효성이 맞는지 확인한다
+
   const isEmail = (email) => {
     const regExp = /^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i;
 
     return regExp.test(email);
   };
+  //  true,false로 반환
 
   // focus blur 될때 event 발생 , setCheckId update => css 제어
-
   const handleBlur = () => {
     if (userEmail === true) {
       setCheckId(true);

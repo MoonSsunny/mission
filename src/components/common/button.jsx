@@ -2,6 +2,8 @@ import React from 'react';
 import styled, { css } from 'styled-components';
 
 const StyleButton = styled.button`
+  display: block;
+  margin: 0 auto;
   border: none;
   border-radius: 4px;
   background: #000;
