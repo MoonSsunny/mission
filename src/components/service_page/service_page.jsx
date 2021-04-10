@@ -1,6 +1,7 @@
 import React from 'react';
 import Button from '../common/button';
 import styled from 'styled-components';
+import Layout from '../layout/layout';
 
 const StyledImage = styled.div`
   text-align: center;
@@ -21,15 +22,17 @@ const ServicePage = () => {
     }
   };
   return (
-    <div>
-      {/* NODE_PATH=public을 이용하여 절대경로로 사용 */}
-      <StyledImage>
-        <img src="/img/example.jpg" alt="service img" />
-        <Button type="button" onClick={onClick}>
-          주문하기
-        </Button>
-      </StyledImage>
-    </div>
+    <Layout>
+      <div>
+        {/* NODE_PATH=public을 이용하여 절대경로로 사용 */}
+        <StyledImage>
+          <img src="/img/example.jpg" alt="service img" />
+          <Button type="button" onClick={onClick}>
+            주문하기
+          </Button>
+        </StyledImage>
+      </div>
+    </Layout>
   );
 };
 

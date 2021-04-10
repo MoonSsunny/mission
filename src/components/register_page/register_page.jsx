@@ -1,13 +1,16 @@
 import React from 'react';
 import Form from '../layout/form';
 import Template from '../layout/template';
+import Layout from '../layout/layout';
 
 const RegisterPage = () => {
   return (
     <>
-      <Template>
-        <Form type="register" />
-      </Template>
+      <Layout>
+        <Template>
+          <Form type="register" />
+        </Template>
+      </Layout>
     </>
   );
 };

@@ -14,6 +14,12 @@ const FormBlock = styled.div`
     border-bottom: ${(props) =>
       props.checkId === false ? '1px solid red' : '1px solid  block'};
   }
+  .errorCheck {
+    color: red;
+    font-size: 12px;
+    margin: 5px 0;
+    display: ${(props) => (props.checkId === false ? 'block' : 'none')};
+  }
 `;
 const StyledInput = styled.input`
   font-size: 1rem;
@@ -49,11 +55,11 @@ const Form = ({ type }) => {
     }
     if (userPassword !== checkPassword) {
       alert('비밀번호가 같지 않습니다');
-      return;
+      return userPwInputRef.current.focus();
     }
     if (userPassword.length < 8 || userPassword.length > 15) {
       alert('비밀번호는 8자리 이상 15 이하 입니다');
-      return;
+      return userPwInputRef.current.focus();
     }
 
     try {
@@ -91,7 +97,9 @@ const Form = ({ type }) => {
         window.location.href = '/';
       }
     } catch (err) {
-      console.error(err.response);
+      if (err.response.status === 401) {
+        alert('비밀번호는 8글자 이상입니다');
+      }
     }
   };
 
@@ -130,6 +138,7 @@ const Form = ({ type }) => {
           }}
           onBlur={handleBlur}
         />
+        <p className="errorCheck">이메일 형식을 확인해 주세요</p>
         <StyledInput
           name="password"
           type="password"

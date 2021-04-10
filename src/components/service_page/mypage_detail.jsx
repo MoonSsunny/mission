@@ -2,6 +2,7 @@ import axios from 'axios';
 import React, { useState } from 'react';
 import { useLocation } from 'react-router';
 import styled from 'styled-components';
+import Layout from '../layout/layout';
 
 const StyledDetailHead = styled.h1`
   margin-left: 30px;
@@ -29,13 +30,13 @@ const MypageDetail = () => {
   };
   contentDetailApi();
   return (
-    <>
+    <Layout>
       <StyledDetailHead>주문상세내용</StyledDetailHead>
       <StyledDetail>
         <p>{detailId}</p>
         <p>{detailItem}</p>
       </StyledDetail>
-    </>
+    </Layout>
   );
 };
 
