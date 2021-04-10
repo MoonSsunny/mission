@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import MypageItem from './mypage_item';
-import Pagination from './mypagination';
+import MyPagination from './mypagination';
 
 const Mypage = () => {
   const [content, setContent] = useState([]);
@@ -24,7 +24,7 @@ const Mypage = () => {
   return (
     <div className="container">
       <MypageItem posts={content} />
-      <Pagination totalPage={totalPage} paginate={paginate} />
+      <MyPagination totalPage={totalPage} paginate={paginate} />
     </div>
   );
 };

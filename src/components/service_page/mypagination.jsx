@@ -17,7 +17,7 @@ const StyledPageNumber = styled.ul`
     border-radius: 4px;
   }
 `;
-const Pagination = ({ totalPage, paginate }) => {
+const MyPagination = ({ totalPage, paginate }) => {
   const pageNumber = [];
   for (let i = 0; i < totalPage; i++) {
     pageNumber.push(i + 1);
@@ -39,4 +39,4 @@ const Pagination = ({ totalPage, paginate }) => {
   );
 };
 
-export default Pagination;
+export default MyPagination;

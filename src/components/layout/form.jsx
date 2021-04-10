@@ -51,8 +51,8 @@ const Form = ({ type }) => {
       alert('비밀번호가 같지 않습니다');
       return;
     }
-    if (userPassword.length < 8) {
-      alert('비밀번호는 8자리 이상입니다');
+    if (userPassword.length < 8 || userPassword.length > 15) {
+      alert('비밀번호는 8자리 이상 15 이하 입니다');
       return;
     }
 
