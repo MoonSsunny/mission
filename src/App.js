@@ -89,49 +89,26 @@ function App() {
     { name: '로그아웃', path: '/logout', id: 'logout' },
   ];
 
+  const navMenus = sessionStorage.getItem('token') ? loginMenus : menus;
+
   return (
     <>
       <Router>
         <StyledNavbar>
           <img src="/img/logo.png" alt="service img" className="logo" />
           <StyledMenuItem>
-            {sessionStorage.getItem('token')
-              ? loginMenus.map((menu) => {
-                  return (
-                    <StyledMenuList
-                      menuDisplay={menuDisplay}
-                      key={menu.id}
-                      onClick={(e) => {
-                        console.log(e.target);
-                      }}
-                    >
-                      <Link to={menu.path}>
-                        <Navigation
-                          menu={menu}
-                          isActive={pathName === menu.path ? true : false}
-                        />
-                      </Link>
-                    </StyledMenuList>
-                  );
-                })
-              : menus.map((menu) => {
-                  return (
-                    <StyledMenuList
-                      menuDisplay={menuDisplay}
-                      key={menu.id}
-                      onClick={(e) => {
-                        console.log(e.target.className);
-                      }}
-                    >
-                      <Link to={menu.path}>
-                        <Navigation
-                          menu={menu}
-                          isActive={pathName === menu.path ? true : false}
-                        />
-                      </Link>
-                    </StyledMenuList>
-                  );
-                })}
+            {navMenus.map((menu) => {
+              return (
+                <StyledMenuList menuDisplay={menuDisplay} key={menu.id}>
+                  <Link to={menu.path}>
+                    <Navigation
+                      menu={menu}
+                      isActive={pathName === menu.path ? true : false}
+                    />
+                  </Link>
+                </StyledMenuList>
+              );
+            })}
           </StyledMenuItem>
           <StyledHambuerMenu
             onClick={() => {

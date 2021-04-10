@@ -1,7 +1,9 @@
+import axios from 'axios';
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import Button from '../common/button';
-import axios from 'axios';
+import { userApi } from '../../api/loginApi';
+import { createUserApi } from '../../api/createUserApi';
 
 const FormBlock = styled.div`
   h3 {
@@ -23,6 +25,7 @@ const StyledInput = styled.input`
   background: transparent;
   margin: 20px 0;
 `;
+
 const Form = ({ type }) => {
   const [userId, setUserId] = useState('');
   const [userPassword, setUserPassword] = useState('');
@@ -37,27 +40,6 @@ const Form = ({ type }) => {
     register: '회원가입',
   };
   const text = formName[type];
-
-  // ********************************************
-  //   회원등록 api호출
-  // ********************************************
-
-  const createUserApi = async (user) => {
-    const response = await axios
-      .post('http://106.10.53.116:8099/sign-up', {
-        user,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    return response;
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -93,37 +75,13 @@ const Form = ({ type }) => {
     }
   };
 
-  // ****************************************
-  //로그인 api호출
-  // ****************************************
-
-  const UserApi = async (user) => {
-    const response = await axios
-      .post('http://106.10.53.116:8099/login', {
-        user,
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      })
-      .then((response) => {
-        if (response.token) {
-          sessionStorage.setItem('token', response.token);
-        }
-        return response.data;
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    return response;
-  };
-
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     if (!userId || !userPassword) {
       alert('빈칸을 채워주세요');
     }
     try {
-      const response = await UserApi({
+      const response = await userApi({
         email: userId,
         password: userPassword,
       });
